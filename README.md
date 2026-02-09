@@ -2,85 +2,102 @@
 
 ## Overview
 
-This repository contains the frontend application for **Wistaway Mini**, a discovery-first travel app centered on curated lodging properties and intent-based playlists.
+This repository contains the frontend application for **Wistaway Mini**, a discovery-first travel app focused on intent-based playlists and external inspiration.
 
-The frontend is responsible for:
+The frontend allows users to:
 
-- user-facing UI and UX
-- routing and protected views
-- managing application state
-- communicating with the backend API
+- log in with existing credentials
+- view their own playlists
+- navigate to a playlist detail page
+- view saved external inspiration links
+- add new links (TikTok, Instagram, YouTube, webpages) to playlists
+
+The frontend is designed to demonstrate a complete end-to-end vertical slice in coordination with the backend API.
 
 ---
 
 ## Tech Stack
 
 - React
+- Vite
 - React Router
 - JavaScript
-- Vite
-- Netlify (deployment)
+- CSS
+- Netlify (deployment planned)
 
 ---
 
-## Code Standards & Conventions
+## Core Features
 
-### General Principles
-
-- State drives UI
-- Keep components focused and reusable
-- Separate UI concerns from API logic
-- Favor readable JSX over compact JSX
+- JWT-based user authentication
+- Playlist list page showing user-owned playlists
+- Playlist detail page displaying playlist metadata and saved links
+- Add Link form that posts to the backend and updates the UI immediately
 
 ---
 
-### Naming Conventions
+## Architecture Overview
 
-**Files & Components**
+The frontend is organized by responsibility:
 
-- Use `PascalCase` for React components and component files
-  - `PlaylistDetail.jsx`
-- Use `camelCase` for utility files and hooks
-
-**Variables**
-
-- Use `camelCase`
-- Use nouns for state values
-  - `playlists`
-  - `selectedPlaylist`
-
-**Functions**
-
-- Use verbs
-  - `fetchPlaylists`
-  - `handleAddLink`
+- src/api/ – API client and request helpers
+- src/pages/ – Page-level React components
+- src/styles/ – Shared application styles
+- App.jsx – Route definitions
+- main.jsx – Application bootstrap and router setup
 
 ---
 
-### Formatting & Style
+## Component Overview
 
-- Remove unused imports and console logs
-- Keep JSX clean and consistently formatted
-- Avoid deeply nested components when possible
+### Login.jsx
 
----
+Handles user authentication by submitting credentials to the backend login endpoint, storing the returned JWT, and redirecting the user into the app.
 
-### Comments & Documentation
+### Playlists.jsx
 
-- Components should be readable without comments
-- Add a short description comment at the top of:
-  - pages
-  - context providers
-  - custom hooks
+Fetches and displays all playlists owned by the authenticated user and provides navigation to individual playlist detail pages.
+
+### PlaylistDetail.jsx
+
+Displays a single playlist’s metadata and associated inspiration links and includes a form for adding new external links to the playlist.
+
+### App.jsx
+
+Defines the client-side routing structure for the application.
+
+### main.jsx
+
+Bootstraps the React application and configures routing.
 
 ---
 
 ## Environment Variables
 
-Environment variables are stored in a `.env` file (not committed).
+Environment variables are stored in a .env file (not committed).
 
 Required variables:
 
-```env
-VITE_API_URL=http://localhost:3000
-```
+    VITE_API_URL=http://localhost:3000
+
+---
+
+## Running the Project Locally
+
+1. Install dependencies:
+
+   npm install
+
+2. Start the dev server:
+
+   npm run dev
+
+3. Open the application:
+
+   http://localhost:5173
+
+---
+
+## Notes
+
+This frontend is intentionally scoped to demonstrate a complete end-to-end vertical slice rather than a fully polished consumer product.
