@@ -37,6 +37,12 @@ export const api = {
       body: JSON.stringify({ email, password }),
     }),
 
+  register: ({ email, password, name }) =>
+    request("/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ email, password, name }),
+    }),
+
   getMe: () => request("/auth/me"),
 
   getPlaylists: () => request("/playlists"),
