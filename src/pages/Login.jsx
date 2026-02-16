@@ -71,14 +71,9 @@ export default function Login() {
           <button disabled={busy}>{busy ? "Logging in..." : "Log in"}</button>
 
           <p className="subtle">
-            Tip: For now, register users via the backend test script, then login
-            here.{" "}
-            <Link
-              to="/playlists/1"
-              className="subtle"
-              style={{ textDecoration: "underline" }}
-            >
-              Go to a playlist detail (requires token)
+            Don’t have an account?{" "}
+            <Link to="/register" style={{ textDecoration: "underline" }}>
+              Create one
             </Link>
           </p>
         </form>
