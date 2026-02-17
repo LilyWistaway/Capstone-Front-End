@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../api/client";
 
-const logo = new URL("../assets/wistaway-logo.png", import.meta.url).href;
-
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -29,15 +27,8 @@ export default function Login() {
 
   return (
     <div className="container">
-      <div className="nav">
-        <div className="brand">
-          <img src={logo} alt="Wistaway" className="logo" />
-        </div>
-        <span className="caption">Login</span>
-      </div>
-
       <div className="card stack card-narrow">
-        <div>
+        <div className="stack-tight">
           <h1 className="h1">Welcome back</h1>
           <p className="caption">
             Log in to view your playlists and add inspiration links.

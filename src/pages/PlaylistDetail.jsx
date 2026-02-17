@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { api } from "../api/client";
 
 const logo = new URL("../assets/wistaway-logo.png", import.meta.url).href;
@@ -12,7 +12,8 @@ const LINK_TYPES = [
 ];
 
 export default function PlaylistDetail() {
-  const { id } = useParams();
+  const { playlistId: playlistIdParam } = useParams();
+  const playlistId = Number(playlistIdParam);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -27,8 +28,6 @@ export default function PlaylistDetail() {
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState("");
   const [saveOk, setSaveOk] = useState("");
-
-  const playlistId = useMemo(() => Number(id), [id]);
 
   async function load() {
     setError("");
@@ -46,7 +45,7 @@ export default function PlaylistDetail() {
   }
 
   useEffect(() => {
-    if (!Number.isInteger(playlistId)) {
+    if (!Number.isFinite(playlistId) || !Number.isInteger(playlistId)) {
       setError("Invalid playlist id");
       setLoading(false);
       return;
@@ -85,20 +84,6 @@ export default function PlaylistDetail() {
 
   return (
     <div className="container">
-      <div className="nav">
-        <div className="brand">
-          <img src={logo} alt="Wistaway" className="logo" />
-        </div>
-        <div className="nav-right">
-          <Link to="/playlists" className="link">
-            Playlists
-          </Link>
-          <Link to="/login" className="link">
-            Login
-          </Link>
-        </div>
-      </div>
-
       {loading ? (
         <div className="card">Loading playlist…</div>
       ) : error ? (
@@ -112,6 +97,10 @@ export default function PlaylistDetail() {
       ) : (
         <div className="stack">
           <div className="card">
+            <div className="inline-row">
+              <img src={logo} alt="Wistaway" className="logo" />
+            </div>
+
             <h1 className="h1">{playlist.title}</h1>
             <p className="caption">
               {playlist.description || "No description."}
@@ -229,10 +218,6 @@ export default function PlaylistDetail() {
                   {saving ? "Saving..." : "Save link"}
                 </button>
               </form>
-
-              <p className="caption">
-                This page requires an auth token in localStorage.
-              </p>
             </div>
           </div>
         </div>

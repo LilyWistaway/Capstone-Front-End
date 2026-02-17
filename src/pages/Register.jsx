@@ -2,8 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 
-const logo = new URL("../assets/wistaway-logo.png", import.meta.url).href;
-
 export default function Register() {
   const navigate = useNavigate();
 
@@ -32,17 +30,8 @@ export default function Register() {
 
   return (
     <div className="container">
-      <div className="nav">
-        <div className="brand">
-          <img src={logo} alt="Wistaway" className="logo" />
-        </div>
-        <Link to="/login" className="link">
-          Log in
-        </Link>
-      </div>
-
       <div className="card stack card-narrow">
-        <div>
+        <div className="stack-tight">
           <h1 className="h1">Create your account</h1>
           <p className="caption">Start exploring and saving inspiration.</p>
         </div>
