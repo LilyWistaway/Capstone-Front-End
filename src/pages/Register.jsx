@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 
-const logo = new URL("../assets/wistaway-logo.png", import.meta.url).href;
+const logo = new URL("../assets/wistaway-logo.svg", import.meta.url).href;
 
 export default function Register() {
   const navigate = useNavigate();
