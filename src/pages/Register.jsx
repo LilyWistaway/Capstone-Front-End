@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 
+const logo = new URL("../assets/wistaway-logo.png", import.meta.url).href;
+
 export default function Register() {
   const navigate = useNavigate();
 
@@ -31,20 +33,18 @@ export default function Register() {
   return (
     <div className="container">
       <div className="nav">
-        <div className="brand">Wistaway Mini</div>
-        <Link
-          to="/login"
-          className="subtle"
-          style={{ textDecoration: "underline" }}
-        >
+        <div className="brand">
+          <img src={logo} alt="Wistaway" className="logo" />
+        </div>
+        <Link to="/login" className="link">
           Log in
         </Link>
       </div>
 
-      <div className="card stack" style={{ maxWidth: 520 }}>
+      <div className="card stack card-narrow">
         <div>
           <h1 className="h1">Create your account</h1>
-          <p className="subtle">Start exploring and saving inspiration.</p>
+          <p className="caption">Start exploring and saving inspiration.</p>
         </div>
 
         <form className="stack" onSubmit={handleSubmit}>
@@ -81,19 +81,15 @@ export default function Register() {
             />
           </div>
 
-          {error ? (
-            <div className="subtle" style={{ color: "#b91c1c" }}>
-              {error}
-            </div>
-          ) : null}
+          {error ? <div className="caption text-error">{error}</div> : null}
 
-          <button disabled={busy}>
+          <button className="btn btn-primary" disabled={busy}>
             {busy ? "Creating..." : "Create account"}
           </button>
 
-          <p className="subtle">
+          <p className="caption">
             Already have an account?{" "}
-            <Link to="/login" style={{ textDecoration: "underline" }}>
+            <Link to="/login" className="link">
               Log in
             </Link>
           </p>

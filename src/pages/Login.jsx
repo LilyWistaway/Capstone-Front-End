@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../api/client";
 
+const logo = new URL("../assets/wistaway-logo.png", import.meta.url).href;
+
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -28,14 +30,16 @@ export default function Login() {
   return (
     <div className="container">
       <div className="nav">
-        <div className="brand">Wistaway Mini</div>
-        <span className="subtle">Login</span>
+        <div className="brand">
+          <img src={logo} alt="Wistaway" className="logo" />
+        </div>
+        <span className="caption">Login</span>
       </div>
 
-      <div className="card stack" style={{ maxWidth: 520 }}>
+      <div className="card stack card-narrow">
         <div>
           <h1 className="h1">Welcome back</h1>
-          <p className="subtle">
+          <p className="caption">
             Log in to view your playlists and add inspiration links.
           </p>
         </div>
@@ -62,17 +66,15 @@ export default function Login() {
             />
           </div>
 
-          {error ? (
-            <div className="subtle" style={{ color: "#b91c1c" }}>
-              {error}
-            </div>
-          ) : null}
+          {error ? <div className="caption text-error">{error}</div> : null}
 
-          <button disabled={busy}>{busy ? "Logging in..." : "Log in"}</button>
+          <button className="btn btn-primary" disabled={busy}>
+            {busy ? "Logging in..." : "Log in"}
+          </button>
 
-          <p className="subtle">
+          <p className="caption">
             Don’t have an account?{" "}
-            <Link to="/register" style={{ textDecoration: "underline" }}>
+            <Link to="/register" className="link">
               Create one
             </Link>
           </p>

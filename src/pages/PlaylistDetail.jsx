@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { api } from "../api/client";
 
+const logo = new URL("../assets/wistaway-logo.png", import.meta.url).href;
+
 const LINK_TYPES = [
   { value: "tiktok", label: "TikTok link" },
   { value: "instagram", label: "IG link" },
@@ -84,37 +86,34 @@ export default function PlaylistDetail() {
   return (
     <div className="container">
       <div className="nav">
-        <div className="brand">Wistaway Mini</div>
-        <div className="stack" style={{ gap: 6, alignItems: "flex-end" }}>
-          <Link
-            to="/login"
-            className="subtle"
-            style={{ textDecoration: "underline" }}
-          >
+        <div className="brand">
+          <img src={logo} alt="Wistaway" className="logo" />
+        </div>
+        <div className="nav-right">
+          <Link to="/playlists" className="link">
+            Playlists
+          </Link>
+          <Link to="/login" className="link">
             Login
           </Link>
-          <span className="subtle">Playlist</span>
         </div>
       </div>
 
       {loading ? (
         <div className="card">Loading playlist…</div>
       ) : error ? (
-        <div className="card">
+        <div className="card stack">
           <h1 className="h1">Couldn’t load playlist</h1>
-          <p className="subtle" style={{ color: "#b91c1c" }}>
-            {error}
-          </p>
-          <p className="subtle">
-            If this is a 401 error, you probably need to log in so the token is
-            stored.
+          <p className="caption text-error">{error}</p>
+          <p className="caption">
+            If you see a 401 error, log in again and retry.
           </p>
         </div>
       ) : (
         <div className="stack">
           <div className="card">
             <h1 className="h1">{playlist.title}</h1>
-            <p className="subtle">
+            <p className="caption">
               {playlist.description || "No description."}
             </p>
             <hr className="hr" />
@@ -124,49 +123,38 @@ export default function PlaylistDetail() {
           <div className="grid2">
             <div className="card stack">
               <div>
-                <h1 className="h1">Saved links</h1>
-                <p className="subtle">
+                <h2 className="h2">Saved links</h2>
+                <p className="caption">
                   External inspiration attached to this playlist.
                 </p>
               </div>
 
               {links.length === 0 ? (
-                <div className="subtle">No links yet. Add the first one.</div>
+                <div className="caption">No links yet. Add the first one.</div>
               ) : (
                 <div className="stack">
                   {links.map((l) => (
-                    <div key={l.id} className="card" style={{ padding: 14 }}>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          gap: 10,
-                        }}
-                      >
-                        <div className="stack" style={{ gap: 6 }}>
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: 8,
-                              alignItems: "center",
-                            }}
-                          >
+                    <div key={l.id} className="card card-compact">
+                      <div className="card-row">
+                        <div className="stack-tight">
+                          <div className="inline-row">
                             <span className="badge">{l.link_type}</span>
-                            <strong style={{ fontSize: 14 }}>
+                            <div className="title-sm">
                               {l.title || "Saved link"}
-                            </strong>
+                            </div>
                           </div>
+
                           <a
                             href={l.url}
                             target="_blank"
                             rel="noreferrer"
-                            className="subtle"
-                            style={{ textDecoration: "underline" }}
+                            className="link"
                           >
                             {l.url}
                           </a>
+
                           {l.note ? (
-                            <div className="subtle">{l.note}</div>
+                            <div className="caption">{l.note}</div>
                           ) : null}
                         </div>
                       </div>
@@ -178,8 +166,8 @@ export default function PlaylistDetail() {
 
             <div className="card stack">
               <div>
-                <h1 className="h1">Add a link</h1>
-                <p className="subtle">
+                <h2 className="h2">Add a link</h2>
+                <p className="caption">
                   TikTok, Instagram, YouTube, or a webpage.
                 </p>
               </div>
@@ -228,24 +216,22 @@ export default function PlaylistDetail() {
                 </div>
 
                 {saveError ? (
-                  <div className="subtle" style={{ color: "#b91c1c" }}>
-                    {saveError}
-                  </div>
+                  <div className="caption text-error">{saveError}</div>
                 ) : null}
                 {saveOk ? (
-                  <div className="subtle" style={{ color: "#166534" }}>
-                    {saveOk}
-                  </div>
+                  <div className="caption text-success">{saveOk}</div>
                 ) : null}
 
-                <button disabled={saving || !url.trim()}>
+                <button
+                  className="btn btn-primary"
+                  disabled={saving || !url.trim()}
+                >
                   {saving ? "Saving..." : "Save link"}
                 </button>
               </form>
 
-              <p className="subtle">
-                This page requires an auth token in localStorage. Log in first
-                if you see a 401.
+              <p className="caption">
+                This page requires an auth token in localStorage.
               </p>
             </div>
           </div>
