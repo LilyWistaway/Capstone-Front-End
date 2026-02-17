@@ -1,14 +1,19 @@
 import { NavLink } from "react-router-dom";
 
+const logo = new URL("../assets/wistaway-logo.png", import.meta.url).href;
+
 export default function TopNav() {
   return (
-    <header className="nav">
-      <div className="nav-inner">
-        <NavLink to="/" className="nav-logo" aria-label="Wistaway home">
-          Wistaway
-        </NavLink>
+    <header className="nav nav--brand-layout">
+      <div className="nav-rails">
+        <div className="nav-brand">
+          <img src={logo} alt="Wistaway" className="nav-logo-img" />
+        </div>
 
-        <nav className="nav-links" aria-label="Primary navigation">
+        <nav
+          className="nav-links nav-links--right"
+          aria-label="Primary navigation"
+        >
           <NavLink to="/" end className="nav-link">
             Home
           </NavLink>
@@ -22,7 +27,7 @@ export default function TopNav() {
             Travel Style
           </NavLink>
           <NavLink to="/booking" className="nav-link">
-            Trip Alignment
+            Book
           </NavLink>
         </nav>
       </div>

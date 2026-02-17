@@ -433,3 +433,52 @@ textarea:focus {
   position: relative;
   z-index: 1;
 }
+.nav-logo-img {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+/* --- Brand-focused nav aligned to card edges --- */
+
+/* --- Brand-focused full-width header (logo left, links right) --- */
+
+/* --- Header aligned to container (same rails as hero card) --- */
+
+/* --- Header rails aligned to hero card rails --- */
+
+.nav--brand-layout {
+  background: transparent;
+  border-bottom: none;
+  display: block; /* override any earlier flex nav rules */
+}
+
+.nav-rails {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-4);
+  display: flex;
+  align-items: flex-end; /* this aligns bottoms */
+  gap: var(--space-4);
+}
+
+/* --- Optical baseline alignment for logo image --- */
+
+.nav-brand {
+  display: flex;
+  align-items: flex-end;
+  height: 44px; /* matches nav link line height zone */
+}
+
+.nav-logo-img {
+  height: 84px;
+  width: auto;
+  display: block;
+  transform: translateY(
+    29px
+  ); /* push down so word baseline aligns, not descender */
+}
+
+.nav-links--right {
+  margin-left: auto; /* this is the “stop centering” hammer */
+  justify-content: flex-end;
+}
