@@ -7,7 +7,7 @@
   --text-muted: #6b7280; /* Secondary text */
   --accent: #17bebb; /* ONE accent color */
   --accent-hover: #139e9b; /* Accent hover */
-  --border: #e5e7eb; /* Subtle border */
+  --border: #eef2f6; /* Subtle border */
   --success: #16a34a; /* Success */
   --error: #dc2626; /* Error */
 
@@ -37,7 +37,7 @@
   --space-8: 64px;
 
   /* Radius */
-  --radius-sm: 12px;
+  --radius-sm: 14px;
   --radius-md: 16px;
   --radius-lg: 20px;
   --radius-pill: 999px;
