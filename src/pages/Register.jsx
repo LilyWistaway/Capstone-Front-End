@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { api } from "../api/client";
 
 export default function Register() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -11,6 +12,8 @@ export default function Register() {
 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+
+  const from = location.state?.from || "/";
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,7 +23,7 @@ export default function Register() {
     try {
       const data = await api.register({ name, email, password });
       localStorage.setItem("token", data.token);
-      navigate("/playlists");
+      navigate(from, { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -33,7 +36,10 @@ export default function Register() {
       <div className="card stack card-narrow">
         <div className="stack-tight">
           <h1 className="h1">Create your account</h1>
-          <p className="caption">Start exploring and saving inspiration.</p>
+          <p className="caption">
+            Save playlists, track your travel style, and pick up where you left
+            off.
+          </p>
         </div>
 
         <form className="stack" onSubmit={handleSubmit}>
@@ -78,7 +84,7 @@ export default function Register() {
 
           <p className="caption">
             Already have an account?{" "}
-            <Link to="/login" className="link">
+            <Link to="/login" className="link" state={{ from }}>
               Log in
             </Link>
           </p>

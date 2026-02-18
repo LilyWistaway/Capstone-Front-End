@@ -482,3 +482,10 @@ textarea:focus {
   margin-left: auto; /* this is the “stop centering” hammer */
   justify-content: flex-end;
 }
+.nav-link--button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}

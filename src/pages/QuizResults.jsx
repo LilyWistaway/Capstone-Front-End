@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function QuizResults() {
+  useEffect(() => {
+    localStorage.setItem("hasCompletedOnboardingQuiz", "true");
+  }, []);
+
   return (
     <main className="container">
       <section className="card stack">
@@ -29,7 +34,7 @@ export default function QuizResults() {
         </div>
 
         <Link className="link" to="/travel-style">
-          Go deeper: Your Travel Style
+          Go deeper: Travel Style
         </Link>
       </section>
     </main>

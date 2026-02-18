@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { api } from "../api/client";
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+
+  const from = location.state?.from || "/";
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -17,7 +21,7 @@ export default function Login() {
     try {
       const data = await api.login({ email, password });
       localStorage.setItem("token", data.token);
-      navigate("/playlists");
+      navigate(from, { replace: true });
     } catch (err) {
       setError(err.message);
     } finally {
@@ -31,7 +35,8 @@ export default function Login() {
         <div className="stack-tight">
           <h1 className="h1">Welcome back</h1>
           <p className="caption">
-            Log in to view your playlists and add inspiration links.
+            Log in to save playlists and build a travel profile that evolves
+            with you.
           </p>
         </div>
 
@@ -65,7 +70,7 @@ export default function Login() {
 
           <p className="caption">
             Don’t have an account?{" "}
-            <Link to="/register" className="link">
+            <Link to="/register" className="link" state={{ from }}>
               Create one
             </Link>
           </p>
