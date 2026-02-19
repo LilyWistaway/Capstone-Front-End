@@ -323,29 +323,28 @@ export default function Quiz() {
   }
 
   return (
-    <main className="container">
+    <main className="container task-page">
       {!started ? (
-        <section className="card card--hero card--primary stack card-center">
+        <section className="card card--hero card--task stack card-center">
+          {" "}
           <h1 className="h1">Discover your travel style</h1>
-
           <p className="body card-center__body">
             Answer five quick questions. Choose what reflects your normal travel
             style.
           </p>
-
           <div className="card-center__actions">
             <button type="button" className="btn btn-primary" onClick={start}>
               Start Quiz
             </button>
           </div>
-
           <p className="caption card-center__body">
-            You can explore without an account. Saving and personalized features
-            require login.
+            You can explore without an account. Register or log in to see and
+            save your results.
           </p>
         </section>
       ) : (
-        <section className="card card--hero card--primary stack quiz-shot card-center">
+        <section className="card card--hero card--task stack quiz-shot card-center">
+          {" "}
           <div className="stack-tight">
             <div className="quiz-step">
               Question {index + 1} of {total}
@@ -353,7 +352,6 @@ export default function Quiz() {
             <h2 className="quiz-question">{current.title}</h2>
             <p className="quiz-subtext">{current.subtext}</p>
           </div>
-
           <div className="tile-grid tile-grid--2x2 tile-grid--cluster">
             {current.options.map((opt) => (
               <button
@@ -383,7 +381,6 @@ export default function Quiz() {
               </button>
             ))}
           </div>
-
           <div className="quiz-footer">
             <div />
             <div className="quiz-footerRight">
@@ -416,10 +413,6 @@ export default function Quiz() {
               )}
             </div>
           </div>
-
-          {!selected ? (
-            <p className="caption">Choose one option to continue.</p>
-          ) : null}
         </section>
       )}
     </main>

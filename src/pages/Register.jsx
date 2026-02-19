@@ -32,8 +32,8 @@ export default function Register() {
   }
 
   return (
-    <div className="container">
-      <div className="card card--primary stack card-narrow">
+    <div className="container task-page">
+      <div className="card card--task stack card-narrow">
         <div className="stack-tight card-center">
           <h1 className="h1">Create your account</h1>
           <p className="caption card-center__body">

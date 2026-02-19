@@ -170,7 +170,39 @@ small,
 .app-shell:not(.app-shell--home) .container {
   padding-top: calc(var(--space-6) + var(--page-header-spacer));
 }
+/* =========================
+   Task Page Rhythm (Tighter)
+   For action-driven pages where extra vertical space wastes viewport.
+========================= */
+:root {
+  --page-header-spacer: clamp(80px, 10vh, 120px);
+  --page-header-spacer-task: calc(
+    var(--page-header-spacer) * 0.75
+  ); /* ~25% tighter */
+}
 
+/* Default (non-Home) header spacer remains as-is */
+.app-shell:not(.app-shell--home) .container {
+  padding-top: calc(var(--space-6) + var(--page-header-spacer));
+}
+
+/* Task pages: reduced nav -> first object spacing */
+.app-shell:not(.app-shell--home) .container.task-page {
+  padding-top: calc(var(--space-6) + var(--page-header-spacer-task));
+}
+
+/* Task card: slightly reduced internal vertical padding */
+.card--task {
+  padding-top: var(--space-6); /* 32px */
+  padding-bottom: var(--space-6); /* 32px */
+}
+
+@media (min-width: 860px) {
+  .card--task {
+    padding-top: var(--space-7); /* 48px */
+    padding-bottom: var(--space-7); /* 48px */
+  }
+}
 /* =========================
    Centered card content (GLOBAL STANDARD)
    Use for primary card content on pages:
