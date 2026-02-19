@@ -1,21 +1,21 @@
 import { Link } from "react-router-dom";
 
-export default function NotFound() {
+export default function BrowseResults() {
   return (
     <main className="container">
       <section className="card card--primary stack card-center">
-        <h1 className="h1">That page doesn’t exist.</h1>
+        <h1 className="h1">Browse results</h1>
 
         <p className="body card-center__body">
-          The route you tried isn’t part of this prototype. Go somewhere useful.
+          This will show destination matches after the Browse inputs.
         </p>
 
         <div className="card-center__actions">
-          <Link className="btn btn-primary" to="/">
-            Home
+          <Link className="btn btn-primary" to="/playlists">
+            View Playlists
           </Link>
           <Link className="btn btn-secondary" to="/browse">
-            Browse Destinations
+            Refine inputs
           </Link>
         </div>
       </section>

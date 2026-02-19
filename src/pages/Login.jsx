@@ -31,7 +31,7 @@ export default function Login() {
 
   return (
     <div className="container">
-      <div className="card stack card-narrow">
+      <div className="card card--primary stack card-narrow">
         <div className="stack-tight card-center">
           <h1 className="h1">Welcome back</h1>
           <p className="caption card-center__body">

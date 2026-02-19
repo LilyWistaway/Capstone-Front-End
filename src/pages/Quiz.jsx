@@ -325,7 +325,7 @@ export default function Quiz() {
   return (
     <main className="container">
       {!started ? (
-        <section className="card stack card--hero card-center">
+        <section className="card card--hero card--primary stack card-center">
           <h1 className="h1">Discover your travel style</h1>
 
           <p className="body card-center__body">
@@ -345,7 +345,7 @@ export default function Quiz() {
           </p>
         </section>
       ) : (
-        <section className="card stack card--hero quiz-shot card-center">
+        <section className="card card--hero card--primary stack quiz-shot card-center">
           <div className="stack-tight">
             <div className="quiz-step">
               Question {index + 1} of {total}

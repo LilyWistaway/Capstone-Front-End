@@ -6,7 +6,12 @@ const bookImg = new URL("../assets/BookImage.png", import.meta.url).href;
 
 function HomeTile({ to, title, desc, cta, bg }) {
   return (
-    <Link to={to} className="home-tile" aria-label={`${title}: ${cta}`}>
+    <Link
+      to={to}
+      className="home-tile tile-linkGraphic"
+      aria-label={`${title}: ${cta}`}
+    >
+      {" "}
       <div className="home-tileMedia" style={{ backgroundImage: `url(${bg})` }}>
         <div className="home-tileContent">
           <h3 className="h3">{title}</h3>
@@ -22,15 +27,15 @@ export default function Home() {
   return (
     <main className="container home-gateway">
       <h1 className="h1 home-gatewayTitle center">
-        Travel that feels like you.
+        Travel that feels like you
       </h1>
 
       <div className="home-gatewayGrid">
         <div className="home-gatewayQuiz">
           <HomeTile
             to="/quiz"
-            title="Learn your travel style"
-            desc="A quick read on what fits you lately."
+            title="Discover your travel style"
+            desc="Build your unique travel profile and get personalized recommendations"
             cta="Take the Quiz"
             bg={quizImg}
           />
@@ -39,7 +44,7 @@ export default function Home() {
         <HomeTile
           to="/browse"
           title="Browse destinations"
-          desc="Explore options that match your vibe."
+          desc="Explore options to build playlists that match your vibe"
           cta="Explore"
           bg={browseImg}
         />
@@ -47,7 +52,7 @@ export default function Home() {
         <HomeTile
           to="/booking"
           title="Booking"
-          desc="Optional, when you’re ready."
+          desc="Compare destinations that fit your style and budget"
           cta="View booking options"
           bg={bookImg}
         />

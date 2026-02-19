@@ -140,6 +140,38 @@ small,
   justify-content: center;
 }
 /* =========================
+   Page stage (vertical rhythm)
+   Use on pages with a single primary card.
+========================= */
+.page-stage {
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-7);
+}
+
+/* For pages that should feel more centered vertically */
+.page-stage--center {
+  min-height: calc(100vh - 140px); /* leaves room for TopNav */
+  display: flex;
+  align-items: center;
+}
+
+.page-stage--center > * {
+  width: 100%;
+}
+/* =========================
+   Page Header Spacer (Non-Home)
+   Ensures consistent Nav -> first object spacing.
+========================= */
+:root {
+  --page-header-spacer: clamp(80px, 10vh, 120px);
+}
+
+/* Add consistent top spacing to all containers on non-Home pages */
+.app-shell:not(.app-shell--home) .container {
+  padding-top: calc(var(--space-6) + var(--page-header-spacer));
+}
+
+/* =========================
    Centered card content (GLOBAL STANDARD)
    Use for primary card content on pages:
    - titles, supporting text, and CTA groups
@@ -309,6 +341,22 @@ small,
   box-shadow: var(--shadow-sm);
   backdrop-filter: blur(var(--card-hero-blur));
 }
+/* =========================
+   Primary Content Card (Breathing Room)
+   Used for single-focus intro cards.
+========================= */
+.card--primary {
+  padding-top: var(--space-7); /* 48px */
+  padding-bottom: var(--space-7); /* 48px */
+}
+
+/* Slightly more vertical weight on larger screens */
+@media (min-width: 860px) {
+  .card--primary {
+    padding-top: var(--space-8); /* 64px */
+    padding-bottom: var(--space-8); /* 64px */
+  }
+}
 
 /* =========================
    Interactive tiles (LOCKED)
@@ -367,7 +415,21 @@ small,
     linear-gradient(180deg, #ffffff 0%, var(--bg-muted) 100%);
   box-shadow: var(--shadow-md);
 }
+/* =========================
+   Graphic Tile Link Utility
+   Prevents global anchor hover color/underline on image tiles.
+========================= */
+.tile-linkGraphic,
+.tile-linkGraphic:hover,
+.tile-linkGraphic:focus,
+.tile-linkGraphic:focus-visible {
+  color: var(--text);
+  text-decoration: none;
+}
 
+.tile-linkGraphic * {
+  color: var(--text);
+}
 /* =========================
    Buttons (accent allowed on primary only)
 ========================= */
@@ -532,18 +594,60 @@ textarea:focus {
 }
 
 /* =========================
-   Global app background
+   Global Background & Surface System (LOCKED)
+   Modes:
+   - Plain: #F9FAFB
+   - Contextual: section image (Browse/Booking/Quiz) + same overlay strength
+   - Beach: atmospheric image (Auth/NotFound) + same overlay strength
+   One mode per page.
 ========================= */
+
 .app-shell {
   min-height: 100vh;
+  background: var(--bg-muted); /* default plain */
+  position: relative;
+}
+
+/* Plain pages */
+.app-shell--plain {
+  background: var(--bg-muted);
+}
+
+/* Beach pages: auth + notfound */
+.app-shell--beach {
   background-image: url("/app-bg.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
 }
 
-.app-shell::before {
+/* Contextual pages: reuse Home tile images as full-page background */
+.app-shell--context-browse,
+.app-shell--context-book,
+.app-shell--context-quiz {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 103% 103%; /* slight crop to remove baked-in white border */
+}
+
+/* Images live in /public now */
+.app-shell--context-browse {
+  background-image: url("/BrowseImage.png");
+}
+
+.app-shell--context-book {
+  background-image: url("/BookImage.png");
+}
+
+.app-shell--context-quiz {
+  background-image: url("/QuizImage.png");
+}
+
+/* Shared overlay treatment (identical strength to current beach overlay) */
+.app-shell--beach::before,
+.app-shell--context-browse::before,
+.app-shell--context-book::before,
+.app-shell--context-quiz::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -561,10 +665,15 @@ textarea:focus {
       rgba(255, 255, 255, 0.75) 100%
     );
 }
-.app-shell > * {
+
+.app-shell--beach > *,
+.app-shell--context-browse > *,
+.app-shell--context-book > *,
+.app-shell--context-quiz > * {
   position: relative;
   z-index: 1;
 }
+
 /* =========================
    Homepage background override (#45)
    No imagery outside tiles on Home only
@@ -869,7 +978,7 @@ textarea:focus {
 /* Background image container */
 .home-tileMedia {
   position: relative;
-  height: 260px;
+  height: 290px;
   background-size: 103% 103%; /* slight zoom to crop ~2px border */
   background-position: center;
   background-repeat: no-repeat;
@@ -878,7 +987,7 @@ textarea:focus {
 
 /* Make quiz tile slightly more dominant */
 .home-gatewayQuiz .home-tileMedia {
-  height: 300px;
+  height: 335px;
 }
 
 /* Soft white overlay (lighter than before so image shows) */
@@ -886,7 +995,8 @@ textarea:focus {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.8); /* or your current value */
+  pointer-events: none;
 }
 
 /* Centered content */
@@ -901,10 +1011,22 @@ textarea:focus {
   gap: var(--space-3);
   text-align: center;
 }
+/* Tile Title: 18px / 700 */
+.home-tileContent .h3 {
+  font-size: var(--tile-title); /* 18px */
+  font-weight: 700; /* upgraded from 600 */
+  color: var(--text); /* #1F2937 */
+}
 
+/* Tile Subtitle: 16px / 500 */
 .home-tileDesc {
+  font-size: var(--body); /* 16px */
+  font-weight: 475; /* upgraded from 400 */
+  color: var(--text); /* full primary text */
+  line-height: 1.35;
   max-width: 520px;
   margin: 0;
+
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -913,4 +1035,9 @@ textarea:focus {
 
 .home-tileCta {
   margin-top: var(--space-2);
+}
+.home-h1 {
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }

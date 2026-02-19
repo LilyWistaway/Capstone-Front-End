@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Booking() {
   return (
     <main className="container">
-      <section className="card stack card-center">
+      <section className="card card--primary stack card-center">
         <h1 className="h1">Trip alignment</h1>
 
         <p className="body card-center__body">
