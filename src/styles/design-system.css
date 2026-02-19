@@ -1,6 +1,8 @@
 @import url("./variables.css");
 
-/* Base */
+/* =========================
+   Base
+========================= */
 * {
   box-sizing: border-box;
 }
@@ -8,6 +10,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -19,10 +22,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 img {
   max-width: 100%;
   display: block;
 }
+
 a {
   color: inherit;
   text-decoration: none;
@@ -32,14 +37,17 @@ a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
 ::selection {
   background: rgba(23, 190, 187, 0.18);
 }
+
 :focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
   border-radius: 10px;
 }
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
@@ -47,90 +55,162 @@ a:hover {
   }
 }
 
-/* Typography (locked sizes) */
+/* =========================
+   Typography (LOCKED)
+   H1: 32px / 600 (hero only)
+   H2: 28px / 500 (quiz + section headers)
+   H3: 18px / 600 (tile titles)
+   Body: 16px / 400
+   Caption: 13px / 400
+   Button: 14px / 500
+========================= */
 .h1,
 h1 {
   font-size: var(--h1);
   font-weight: var(--weight-semibold);
-  line-height: var(--lh-tight);
+  line-height: 1.2;
   letter-spacing: -0.02em;
   margin: 0 0 var(--space-4) 0;
 }
+
 .h2,
 h2 {
-  font-size: var(--h2);
-  font-weight: var(--weight-semibold);
-  line-height: 1.3;
+  font-size: var(--quiz-question); /* 28px */
+  font-weight: var(--weight-medium); /* 500 */
+  line-height: 1.25;
   letter-spacing: -0.01em;
   margin: 0 0 var(--space-3) 0;
 }
+
+.h3,
+h3 {
+  font-size: var(--tile-title); /* 18px */
+  font-weight: var(--weight-semibold); /* 600 */
+  line-height: 1.25;
+  margin: 0 0 var(--space-2) 0;
+}
+
 .body {
   font-size: var(--body);
   font-weight: var(--weight-regular);
 }
+
 .caption,
 small,
 .small {
   font-size: var(--caption);
+  font-weight: var(--weight-regular);
   color: var(--text-muted);
 }
 
-/* Layout helpers */
+/* =========================
+   Layout helpers
+========================= */
 .container {
   max-width: var(--container);
   margin: 0 auto;
   padding: var(--space-6) var(--space-4);
 }
+
 .stack {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
-
+.stack-tight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
 .row {
   display: grid;
   gap: var(--space-2);
 }
+.inline-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
 
-/* Generic grid helper */
+.center {
+  text-align: center;
+}
+.center-row {
+  display: flex;
+  justify-content: center;
+}
+
 .grid {
   display: grid;
   gap: var(--space-4);
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-/* Nav */
-.nav {
-  width: 100%;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
+.grid2 {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: var(--space-4);
 }
-.nav-inner {
+@media (max-width: 860px) {
+  .grid2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   Links (accent allowed)
+========================= */
+.link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.link:hover {
+  color: var(--accent-hover);
+}
+
+/* =========================
+   Nav (TopNav)
+========================= */
+.nav--brand-layout {
+  background: transparent;
+  border-bottom: none;
+  display: block;
+}
+
+.nav-rails {
   max-width: var(--container);
   margin: 0 auto;
   padding: var(--space-4) var(--space-4);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-end;
   gap: var(--space-4);
 }
-.nav-logo {
+
+.nav-brand {
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-weight: 700;
-  letter-spacing: 0.2px;
+  align-items: flex-end;
+  height: 44px;
 }
-.logo {
-  height: 96px;
+
+.nav-logo-img {
+  height: 84px;
   width: auto;
   display: block;
+  transform: translateY(29px);
 }
+
 .nav-links {
   display: flex;
   align-items: center;
   gap: var(--space-5);
 }
+
+.nav-links--right {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
 .nav-link {
   font-size: var(--body);
   font-weight: var(--weight-medium);
@@ -138,6 +218,7 @@ small,
   text-decoration: none;
   transition: color 160ms ease;
 }
+
 .nav-link:hover {
   color: var(--accent);
   text-decoration: none;
@@ -146,26 +227,111 @@ small,
   color: var(--accent);
 }
 
-/* Card */
+.nav-link--button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* =========================
+   Surface hierarchy (LOCKED)
+   A) Hero/Image pages: .card--hero
+   B) App/Content pages: .card (solid)
+========================= */
 .card {
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-lg); /* 20px */
   padding: var(--space-5);
   box-shadow: var(--shadow-sm);
   transition:
     box-shadow 160ms ease,
     border-color 160ms ease;
 }
+
 .card:hover {
   box-shadow: var(--shadow-md);
 }
+
 .card-narrow {
   max-width: 520px;
-  margin: 0 auto; /* CENTER IT */
+  margin: 0 auto;
+}
+.card-compact {
+  padding: 14px;
 }
 
-/* Buttons */
+.card--hero {
+  background: rgba(255, 255, 255, var(--card-hero-opacity)); /* ~94–96% */
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(var(--card-hero-blur));
+}
+
+/* =========================
+   Interactive tiles (LOCKED)
+   Default: neutral gradient (white -> #F9FAFB)
+   Hover: accent border + slight elevation, NO fill change
+   Selected: accent border + subtle accent tint (5–8%), icon accent
+========================= */
+.tile-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+.tile-grid--2x2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 860px) {
+  .tile-grid--2x2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tile-grid--cluster {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.tile {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  background: linear-gradient(180deg, #ffffff 0%, var(--bg-muted) 100%);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.tile--interactive {
+  cursor: pointer;
+}
+
+/* Hover: border accent + elevation only */
+.tile--interactive:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+/* Selected: accent border + subtle tint; border thickness unchanged */
+.tile--selected {
+  border-color: var(--accent);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(23, 190, 187, var(--accent-tint)) 0%,
+      rgba(23, 190, 187, var(--accent-tint)) 100%
+    ),
+    linear-gradient(180deg, #ffffff 0%, var(--bg-muted) 100%);
+  box-shadow: var(--shadow-md);
+}
+
+/* =========================
+   Buttons (accent allowed on primary only)
+========================= */
 .btn,
 button {
   display: inline-flex;
@@ -177,7 +343,6 @@ button {
   font-size: var(--button);
   font-weight: var(--weight-medium);
   line-height: 1;
-  cursor: pointer;
   user-select: none;
   border: 1px solid transparent;
   background: transparent;
@@ -187,6 +352,7 @@ button {
     border-color 160ms ease,
     opacity 120ms ease;
 }
+
 .btn:active,
 button:active {
   transform: translateY(1px);
@@ -229,7 +395,9 @@ button:disabled {
   pointer-events: none;
 }
 
-/* Inputs */
+/* =========================
+   Inputs
+========================= */
 .input,
 select.input,
 textarea.input,
@@ -248,10 +416,12 @@ textarea {
     border-color 160ms ease,
     box-shadow 160ms ease;
 }
+
 input::placeholder,
 textarea::placeholder {
   color: rgba(107, 114, 128, 0.9);
 }
+
 .input:focus,
 input:focus,
 select:focus,
@@ -260,7 +430,9 @@ textarea:focus {
   box-shadow: var(--focus-ring);
 }
 
-/* Badge / chip */
+/* =========================
+   Badge / chip
+========================= */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -275,7 +447,9 @@ textarea:focus {
   border: 1px solid rgba(23, 190, 187, 0.2);
 }
 
-/* Alerts */
+/* =========================
+   Alerts + misc
+========================= */
 .alert {
   border-radius: var(--radius-md);
   padding: var(--space-4);
@@ -292,63 +466,12 @@ textarea:focus {
   background: rgba(220, 38, 38, 0.08);
   color: #7f1d1d;
 }
-/* ---------- App helpers (no inline styles) ---------- */
 
-/* Brand + top row nav used inside pages */
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding: var(--space-5) 0;
-  margin-bottom: var(--space-6);
-  border-bottom: none;
-  background: transparent;
+.text-error {
+  color: var(--error);
 }
-
-.container {
-  max-width: 1120px; /* already in tokens */
-  margin: 0 auto;
-  padding: var(--space-6) var(--space-4);
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-weight: var(--weight-semibold);
-}
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-/* Links */
-.link {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.link:hover {
-  color: var(--accent-hover);
-}
-
-/* Width helpers */
-.card-narrow {
-  max-width: 520px;
-}
-
-/* Layout helpers used in PlaylistDetail */
-.grid2 {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: var(--space-4);
-}
-@media (max-width: 860px) {
-  .grid2 {
-    grid-template-columns: 1fr;
-  }
+.text-success {
+  color: var(--success);
 }
 
 .hr {
@@ -358,46 +481,20 @@ textarea:focus {
   margin: var(--space-5) 0;
 }
 
-/* Tight spacing variants */
-.stack-tight {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-/* Card variants */
-.card-compact {
-  padding: 14px;
-}
-
-/* Row layout used inside cards */
 .card-row {
   display: flex;
   justify-content: space-between;
   gap: 10px;
 }
-.inline-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-/* Small title text used in list items */
 .title-sm {
   font-size: 14px;
   font-weight: var(--weight-semibold);
   margin: 0;
 }
 
-/* Status text */
-.text-error {
-  color: var(--error);
-}
-.text-success {
-  color: var(--success);
-}
-/* ---------- Global app background ---------- */
-
+/* =========================
+   Global app background
+========================= */
 .app-shell {
   min-height: 100vh;
   background-image: url("/app-bg.png");
@@ -407,13 +504,10 @@ textarea:focus {
   position: relative;
 }
 
-/* Softer, more “mockup” overlay */
 .app-shell::before {
   content: "";
   position: absolute;
   inset: 0;
-
-  /* bright + airy without blur */
   background:
     radial-gradient(
       circle at 60% 15%,
@@ -428,64 +522,235 @@ textarea:focus {
       rgba(255, 255, 255, 0.75) 100%
     );
 }
-
 .app-shell > * {
   position: relative;
   z-index: 1;
 }
-.nav-logo-img {
-  height: 32px;
-  width: auto;
-  display: block;
-}
-/* --- Brand-focused nav aligned to card edges --- */
 
-/* --- Brand-focused full-width header (logo left, links right) --- */
-
-/* --- Header aligned to container (same rails as hero card) --- */
-
-/* --- Header rails aligned to hero card rails --- */
-
-.nav--brand-layout {
-  background: transparent;
-  border-bottom: none;
-  display: block; /* override any earlier flex nav rules */
-}
-
-.nav-rails {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding: var(--space-4) var(--space-4);
+/* =========================
+   Quiz tiles internal layout (FINAL LOCK)
+   Icon -> Title -> Descriptor -> Example
+   Centered, equal heights, square-ish, no dividers
+========================= */
+.tile--quiz {
+  text-align: center;
+  aspect-ratio: 1 / 1;
+  max-height: clamp(200px, 22vh, 240px); /* viewport-safe */
   display: flex;
-  align-items: flex-end; /* this aligns bottoms */
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-tileContent {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+/* Icons: accent by default (locked) */
+.quiz-iconWrap {
+  color: var(--accent);
+}
+
+.tile--selected .quiz-iconWrap {
+  color: var(--accent-hover);
+}
+
+.quiz-icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* Title: 18/600 via h3 */
+.quiz-tileTitle {
+  margin: 0;
+}
+
+/* Descriptor: 16/400, primary text, 1 line */
+.quiz-tileDesc {
+  margin: 0;
+  color: var(--text);
+  font-size: var(--body);
+  font-weight: var(--weight-regular);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Example: 13/400, muted, 1 line preferred */
+.quiz-tileExample {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--caption);
+  font-weight: var(--weight-regular);
+  line-height: 1.4;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Quiz header tone */
+.quiz-step {
+  font-size: var(--caption);
+  font-weight: var(--weight-regular);
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+.quiz-subtext {
+  font-size: var(--body);
+  font-weight: var(--weight-regular);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Footer */
+.quiz-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--space-4);
 }
 
-/* --- Optical baseline alignment for logo image --- */
-
-.nav-brand {
+.quiz-footerRight {
   display: flex;
-  align-items: flex-end;
-  height: 44px; /* matches nav link line height zone */
+  align-items: center;
+  gap: var(--space-3);
+}
+/* =========================
+   Quiz tiles: match screenshot exactly
+========================= */
+
+/* tighter hero quiz card feel */
+.quiz-shot {
+  padding-top: var(--space-6);
 }
 
-.nav-logo-img {
-  height: 84px;
-  width: auto;
-  display: block;
-  transform: translateY(
-    29px
-  ); /* push down so word baseline aligns, not descender */
+/* tile sizing + layout */
+.tile--quizShot {
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  text-align: center;
+  background: linear-gradient(180deg, #ffffff 0%, var(--bg-muted) 100%);
+  box-shadow: var(--shadow-sm);
 }
 
-.nav-links--right {
-  margin-left: auto; /* this is the “stop centering” hammer */
-  justify-content: flex-end;
+/* hover: border accent, no fill change */
+.tile--quizShot:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
 }
-.nav-link--button {
-  background: transparent;
+
+/* selected: accent border + subtle tint (keep border thickness) */
+.tile--quizShot.tile--selected {
+  border-color: var(--accent);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(23, 190, 187, var(--accent-tint)) 0%,
+      rgba(23, 190, 187, var(--accent-tint)) 100%
+    ),
+    linear-gradient(180deg, #ffffff 0%, var(--bg-muted) 100%);
+  box-shadow: var(--shadow-md);
+}
+
+.quiz-shotTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.quiz-shotIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.quiz-icon {
+  width: 28px;
+  height: 28px;
+}
+
+/* title reads larger like screenshot */
+.quiz-shotTitle {
+  font-size: 22px;
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+  margin: 0;
+}
+
+/* subtle internal rules like screenshot */
+.quiz-shotRule {
+  width: 100%;
+  height: 1px;
+  background: rgba(229, 231, 235, 0.9);
   border: 0;
-  padding: 0;
-  cursor: pointer;
-  font: inherit;
+  margin: 0;
+}
+
+.quiz-shotDesc {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--body);
+  font-weight: var(--weight-regular);
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* example line */
+.quiz-shotExample {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--caption);
+  font-weight: var(--weight-regular);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.quiz-shotExampleLabel {
+  font-weight: var(--weight-semibold);
+  color: var(--text);
+}
+/* --- Lock quiz tile sizing across all questions --- */
+
+.tile-grid--2x2.tile-grid--cluster {
+  align-items: stretch;
+}
+
+.tile--quizShot {
+  height: 220px; /* matches the look of question 1 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-shotTile {
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+/* Clamp text so it can't change tile height */
+.quiz-shotDesc {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.quiz-shotExample {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
