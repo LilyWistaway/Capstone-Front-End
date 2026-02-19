@@ -2,7 +2,7 @@
   /* Color system (locked) */
   --bg: #ffffff;
   --bg-muted: #f9fafb;
-  --card-bg: #ffffff;
+  --card-bg: var(--bg-muted);
   --text: #1f2937;
   --text-muted: #6b7280;
   --accent: #17bebb;
