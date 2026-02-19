@@ -85,26 +85,27 @@ export default function PlaylistDetail() {
   return (
     <div className="container">
       {loading ? (
-        <div className="card">Loading playlist…</div>
+        <div className="card card-center">
+          <div className="caption">Loading playlist…</div>
+        </div>
       ) : error ? (
-        <div className="card stack">
+        <div className="card stack card-center">
           <h1 className="h1">Couldn’t load playlist</h1>
-          <p className="caption text-error">{error}</p>
-          <p className="caption">
+          <p className="caption text-error card-center__body">{error}</p>
+          <p className="caption card-center__body">
             If you see a 401 error, log in again and retry.
           </p>
         </div>
       ) : (
         <div className="stack">
-          <div className="card">
-            <div className="inline-row">
-              <img src={logo} alt="Wistaway" className="logo" />
-            </div>
+          <div className="card card-center">
+            <img src={logo} alt="Wistaway" className="logo" />
 
             <h1 className="h1">{playlist.title}</h1>
-            <p className="caption">
+            <p className="caption card-center__body">
               {playlist.description || "No description."}
             </p>
+
             <hr className="hr" />
             <span className="badge">{links.length} links saved</span>
           </div>
@@ -211,12 +212,15 @@ export default function PlaylistDetail() {
                   <div className="caption text-success">{saveOk}</div>
                 ) : null}
 
-                <button
-                  className="btn btn-primary"
-                  disabled={saving || !url.trim()}
-                >
-                  {saving ? "Saving..." : "Save link"}
-                </button>
+                <div className="card-center__actions">
+                  <button
+                    className="btn btn-primary"
+                    disabled={saving || !url.trim()}
+                    type="submit"
+                  >
+                    {saving ? "Saving..." : "Save link"}
+                  </button>
+                </div>
               </form>
             </div>
           </div>

@@ -28,9 +28,9 @@ export default function Playlists() {
   return (
     <div className="container">
       <div className="card stack">
-        <div className="stack-tight">
+        <div className="stack-tight card-center">
           <h1 className="h1">Your playlists</h1>
-          <p className="caption">
+          <p className="caption card-center__body">
             Open a playlist to view details and add inspiration links.
           </p>
         </div>

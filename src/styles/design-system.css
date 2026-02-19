@@ -139,6 +139,40 @@ small,
   display: flex;
   justify-content: center;
 }
+/* =========================
+   Centered card content (GLOBAL STANDARD)
+   Use for primary card content on pages:
+   - titles, supporting text, and CTA groups
+========================= */
+.text-left {
+  text-align: left;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.card-center {
+  text-align: center;
+}
+
+.card-center > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* keeps centered paragraphs readable */
+.card-center .card-center__body {
+  max-width: 680px;
+}
+
+/* centers CTA groups consistently */
+.card-center .card-center__actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
 
 .grid {
   display: grid;

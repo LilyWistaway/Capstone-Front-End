@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 export default function Booking() {
   return (
     <main className="container">
-      <section className="card stack">
+      <section className="card stack card-center">
         <h1 className="h1">Trip alignment</h1>
-        <p className="body">
+
+        <p className="body card-center__body">
           When you’re ready to narrow choices by timing, budget, and logistics,
           you’ll do it here.
         </p>
 
-        <div className="inline-row">
+        <div className="card-center__actions">
           <Link className="btn btn-primary" to="/playlists">
             Choose a Playlist
           </Link>

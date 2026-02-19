@@ -325,26 +325,27 @@ export default function Quiz() {
   return (
     <main className="container">
       {!started ? (
-        <section className="card stack card--hero center">
+        <section className="card stack card--hero card-center">
           <h1 className="h1">Discover your travel style</h1>
-          <p className="body">
+
+          <p className="body card-center__body">
             Answer five quick questions. Choose what reflects your normal travel
             style.
           </p>
 
-          <div className="center-row">
+          <div className="card-center__actions">
             <button type="button" className="btn btn-primary" onClick={start}>
               Start Quiz
             </button>
           </div>
 
-          <p className="caption">
+          <p className="caption card-center__body">
             You can explore without an account. Saving and personalized features
             require login.
           </p>
         </section>
       ) : (
-        <section className="card stack card--hero quiz-shot center">
+        <section className="card stack card--hero quiz-shot card-center">
           <div className="stack-tight">
             <div className="quiz-step">
               Question {index + 1} of {total}

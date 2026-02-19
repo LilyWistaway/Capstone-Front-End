@@ -32,9 +32,9 @@ export default function Login() {
   return (
     <div className="container">
       <div className="card stack card-narrow">
-        <div className="stack-tight">
+        <div className="stack-tight card-center">
           <h1 className="h1">Welcome back</h1>
-          <p className="caption">
+          <p className="caption card-center__body">
             Log in to save playlists and build a travel profile that evolves
             with you.
           </p>
@@ -64,11 +64,13 @@ export default function Login() {
 
           {error ? <div className="caption text-error">{error}</div> : null}
 
-          <button className="btn btn-primary" disabled={busy}>
-            {busy ? "Logging in..." : "Log in"}
-          </button>
+          <div className="card-center__actions">
+            <button className="btn btn-primary" disabled={busy} type="submit">
+              {busy ? "Logging in..." : "Log in"}
+            </button>
+          </div>
 
-          <p className="caption">
+          <p className="caption card-center">
             Don’t have an account?{" "}
             <Link to="/register" className="link" state={{ from }}>
               Create one

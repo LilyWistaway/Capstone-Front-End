@@ -34,9 +34,9 @@ export default function Register() {
   return (
     <div className="container">
       <div className="card stack card-narrow">
-        <div className="stack-tight">
+        <div className="stack-tight card-center">
           <h1 className="h1">Create your account</h1>
-          <p className="caption">
+          <p className="caption card-center__body">
             Save playlists, track your travel style, and pick up where you left
             off.
           </p>
@@ -78,11 +78,13 @@ export default function Register() {
 
           {error ? <div className="caption text-error">{error}</div> : null}
 
-          <button className="btn btn-primary" disabled={busy}>
-            {busy ? "Creating..." : "Create account"}
-          </button>
+          <div className="card-center__actions">
+            <button className="btn btn-primary" disabled={busy} type="submit">
+              {busy ? "Creating..." : "Create account"}
+            </button>
+          </div>
 
-          <p className="caption">
+          <p className="caption card-center">
             Already have an account?{" "}
             <Link to="/login" className="link" state={{ from }}>
               Log in
