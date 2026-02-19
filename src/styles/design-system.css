@@ -560,6 +560,18 @@ textarea:focus {
   position: relative;
   z-index: 1;
 }
+/* =========================
+   Homepage background override (#45)
+   No imagery outside tiles on Home only
+========================= */
+.app-shell.app-shell--home {
+  background-image: none;
+  background: var(--bg-muted); /* #F9FAFB */
+}
+
+.app-shell.app-shell--home::before {
+  content: none;
+}
 
 /* =========================
    Quiz tiles internal layout (FINAL LOCK)
@@ -787,4 +799,113 @@ textarea:focus {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+/* =========================
+   Homepage gateway tiles (#45)
+========================= */
+
+.home-gateway {
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-7);
+}
+
+.home-gatewayTitle {
+  margin-bottom: var(--space-6);
+}
+
+.home-gatewayGrid {
+  max-width: 980px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  align-items: stretch;
+}
+
+.home-gatewayQuiz {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: min(720px, 100%);
+}
+
+@media (max-width: 860px) {
+  .home-gatewayGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-gatewayQuiz {
+    width: 100%;
+  }
+}
+
+/* Tile surface */
+.home-tile {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  text-decoration: none;
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.home-tile:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+}
+
+.home-tile:focus-visible {
+  box-shadow: var(--focus-ring), var(--shadow-md);
+}
+
+/* Background image container */
+.home-tileMedia {
+  position: relative;
+  height: 260px;
+  background-size: 103% 103%; /* slight zoom to crop ~2px border */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: var(--bg-muted);
+}
+
+/* Make quiz tile slightly more dominant */
+.home-gatewayQuiz .home-tileMedia {
+  height: 300px;
+}
+
+/* Soft white overlay (lighter than before so image shows) */
+.home-tileMedia::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+/* Centered content */
+.home-tileContent {
+  position: relative;
+  height: 100%;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.home-tileDesc {
+  max-width: 520px;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.home-tileCta {
+  margin-top: var(--space-2);
 }

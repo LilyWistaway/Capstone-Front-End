@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import TopNav from "./components/TopNav";
 import RequireAuth from "./components/RequireAuth";
@@ -18,8 +18,11 @@ import NotFound from "./pages/NotFound";
 import "./styles/design-system.css";
 
 export default function App() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   return (
-    <div className="app-shell">
+    <div className={`app-shell${isHome ? " app-shell--home" : ""}`}>
       <TopNav />
 
       <Routes>
