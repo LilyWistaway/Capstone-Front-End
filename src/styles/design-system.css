@@ -541,12 +541,19 @@ small,
 }
 
 /* =========================
-   Nav (TopNav)
+   Sticky TopNav (Global)
 ========================= */
 .nav--brand-layout {
-  background: transparent;
-  border-bottom: none;
-  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  /* Keep it readable on all background modes */
+  background: rgba(249, 250, 251, 0.92); /* matches bg-muted */
+  backdrop-filter: blur(8px);
+
+  /* subtle separation */
+  border-bottom: 1px solid rgba(229, 231, 235, 0.7);
 }
 
 .nav-rails {
