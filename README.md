@@ -2,17 +2,17 @@
 
 ## Overview
 
-This repository contains the frontend application for **Wistaway Mini**, a discovery-first travel app focused on intent-based playlists and external inspiration.
+This repository contains the frontend application for **Wistaway Mini**, a discovery-first travel platform centered on identity-driven playlists and intent-based exploration.
 
-The frontend allows users to:
+The frontend demonstrates:
 
-- log in with existing credentials
-- view their own playlists
-- navigate to a playlist detail page
-- view saved external inspiration links
-- add new links (TikTok, Instagram, YouTube, webpages) to playlists
+- JWT authentication
+- Structured route-based background system
+- Consistent surface and layout design system
+- Conditional rendering patterns (empty vs populated states)
+- A complete vertical slice from login → playlist hub → playlist detail → link creation
 
-The frontend is designed to demonstrate a complete end-to-end vertical slice in coordination with the backend API.
+The implementation prioritizes architectural clarity and UI system consistency over feature completeness.
 
 ---
 
@@ -21,83 +21,266 @@ The frontend is designed to demonstrate a complete end-to-end vertical slice in 
 - React
 - Vite
 - React Router
-- JavaScript
-- CSS
-- Netlify (deployment planned)
+- JavaScript (ES Modules)
+- CSS (custom design system)
+- Netlify (deployment target)
 
 ---
 
-## Core Features
+## Routing Structure
 
-- JWT-based user authentication
-- Playlist list page showing user-owned playlists
-- Playlist detail page displaying playlist metadata and saved links
-- Add Link form that posts to the backend and updates the UI immediately
+Defined in `App.jsx`.
+
+### Core Routes
+
+- `/` – Homepage (graphic CTA tiles)
+- `/browse` – Browse input form
+- `/browse/results` – Browse results shell
+- `/booking` – Booking input form
+- `/booking/results` – Booking results shell
+- `/quiz` – Quiz step flow
+- `/quiz/results` – Quiz results
+- `/travel-style` – Travel style page
+- `/playlists` – Playlist Hub
+- `/playlists/:playlistId` – Playlist Detail
+- `/login`
+- `/register`
+
+Background mode is determined centrally via a route → background mapping function inside `App.jsx`.
 
 ---
 
-## Architecture Overview
+## Background & Surface System
 
-The frontend is organized by responsibility:
+The frontend implements a locked surface schema with three modes:
 
-- src/api/ – API client and request helpers
-- src/pages/ – Page-level React components
-- src/styles/ – Shared application styles
-- App.jsx – Route definitions
-- main.jsx – Application bootstrap and router setup
+### 1. Plain Background
+
+`#F9FAFB`
+
+Used for:
+
+- Home
+- Results pages
+- Playlists
+- Playlist Detail
+
+### 2. Contextual Image Background
+
+Softened image with overlay.
+
+Used for:
+
+- Browse (input)
+- Booking (input)
+- Quiz suite (Quiz, Results, Travel Style)
+
+### 3. Beach Atmospheric Background
+
+Softened beach image with blur overlay.
+
+Used for:
+
+- Login
+- Register
+- NotFound
+
+### Global Rules
+
+- Only one background mode per page.
+- No photo background + photo tiles on the same page.
+- Cards use muted gray (`#F9FAFB`), never pure white.
+- Sticky navigation across all pages.
+- No internal card scroll.
+
+All surface logic lives in `src/styles/design-system.css`.
 
 ---
 
-## Component Overview
+## Design System
 
-### Login.jsx
+Custom CSS-based design system including:
 
-Handles user authentication by submitting credentials to the backend login endpoint, storing the returned JWT, and redirecting the user into the app.
+### Typography
 
-### Playlists.jsx
+- Inter font
+- Locked size/weight scale
+- Home headline emphasis
+- Graphic tile typography overrides
 
-Fetches and displays all playlists owned by the authenticated user and provides navigation to individual playlist detail pages.
+### Layout Helpers
 
-### PlaylistDetail.jsx
+- `.container`
+- `.stack`
+- `.grid`
+- `.page-stage`
+- `.task-page`
 
-Displays a single playlist’s metadata and associated inspiration links and includes a form for adding new external links to the playlist.
+### Surface Variants
 
-### App.jsx
+- `.card`
+- `.card--hero`
+- `.card--primary`
+- `.card--task`
 
-Defines the client-side routing structure for the application.
+### Background Mode Classes
 
-### main.jsx
+- `.app-shell--plain`
+- `.app-shell--context-browse`
+- `.app-shell--context-book`
+- `.app-shell--context-quiz`
+- `.app-shell--beach`
 
-Bootstraps the React application and configures routing.
+### Graphic Tile Utilities
+
+Overrides global anchor hover color when tiles are image-based.
+
+---
+
+## Core Pages
+
+### Homepage (`/`)
+
+- Plain background
+- Three photographic CTA tiles
+- No enclosing card
+- Strong typographic hierarchy
+- Slightly taller soft-rectangle tiles
+
+---
+
+### Playlist Hub (`/playlists`)
+
+Header:
+
+- Title + subtitle
+- Primary CTA (“Create a playlist”) always visible
+
+Conditional rendering:
+
+#### Empty State
+
+- 3 action tiles (no enclosing card)
+- Optional starter playlists section (demo-only)
+- Starter playlists use image + title below pattern (no overlay)
+
+#### Populated State
+
+- Playlist grid
+- Image cover (16:10 ratio)
+- Title below image
+- Optional metadata row
+- Entire tile clickable
+
+No passive empty-state card.
+
+---
+
+### Playlist Detail (`/playlists/:playlistId`)
+
+- Displays playlist metadata
+- Lists external inspiration links
+- Add Link form posts to backend
+- UI updates immediately after POST
+
+---
+
+### Quiz (`/quiz`)
+
+- Step-based flow
+- Locked tile sizing for consistency
+- No internal scroll
+- Reduced spacing for task-focused rhythm
+- Stores completion flag in `localStorage`
+
+---
+
+### Browse & Booking (Input Pages)
+
+- Contextual image background
+- Centered muted-gray task card
+- Reduced nav → card spacing
+- Slightly reduced internal card padding
+- No photographic tiles
+
+---
+
+## API Integration
+
+Located in:
+src/api/client.js
+
+Current endpoints used:
+
+- `login`
+- `register`
+- `getPlaylists`
+- `getPlaylistDetail`
+- `addPlaylistLink`
+
+Playlist Hub uses API data but overlays demo cover images for presentation.
+
+---
+
+## Folder Structure
+
+src/
+api/
+components/
+pages/
+styles/
+App.jsx
+main.jsx
+
+- `pages/` – route-level components
+- `styles/design-system.css` – global layout & surface system
+- `App.jsx` – routing + background mode logic
 
 ---
 
 ## Environment Variables
 
-Environment variables are stored in a .env file (not committed).
+Stored in `.env` (not committed).
 
-Required variables:
-
-    VITE_API_URL=http://localhost:3000
-
----
-
-## Running the Project Locally
-
-1. Install dependencies:
-
-   npm install
-
-2. Start the dev server:
-
-   npm run dev
-
-3. Open the application:
-
-   http://localhost:5173
+Required:
+VITE_API_URL=http://localhost:3000
 
 ---
 
-## Notes
+## Running Locally
 
-This frontend is intentionally scoped to demonstrate a complete end-to-end vertical slice rather than a fully polished consumer product.
+Install dependencies:
+npm install
+
+Start dev server:
+npm run dev
+
+Open:
+http://localhost:5173
+
+---
+
+## Design Constraints (Must Be Preserved)
+
+- No mixing photo background with photo tiles.
+- Only one background mode per page.
+- Cards use muted gray (`#F9FAFB`), not white.
+- Sticky nav must remain global.
+- Task pages use tighter vertical rhythm.
+- Content pages retain generous spacing.
+- No scroll inside cards.
+
+Future development should adhere to these constraints to maintain system coherence.
+
+---
+
+## Scope Note
+
+This frontend demonstrates:
+
+- Structured design system implementation
+- Clean route architecture
+- Expandable UI patterns
+- Demo-ready user flows
+
+It is demo-ready but not feature-complete.
