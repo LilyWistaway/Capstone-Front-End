@@ -254,7 +254,280 @@ small,
     grid-template-columns: 1fr;
   }
 }
+/* =========================
+   Playlist Hub Page (Final Spec) — /playlists
+========================= */
 
+.playlistHub {
+  max-width: 980px; /* match Home tiles grid */
+  margin: 0 auto;
+}
+
+/* Header: title centered, CTA right on same row (desktop) */
+.playlistHubHeader {
+  margin-bottom: var(--space-7); /* more separation before action tiles */
+}
+
+.playlistHubHeaderTop {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: var(--space-5);
+}
+
+.playlistHubHeaderTitle {
+  justify-self: center;
+  text-align: center;
+  margin: 0;
+}
+
+.playlistHubCta {
+  justify-self: end;
+}
+
+.playlistHubSubtitle {
+  margin: var(--space-3) 0 0 0;
+  text-align: center;
+  color: var(--text);
+  font-size: var(--body);
+  font-weight: var(--weight-regular);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 860px) {
+  .playlistHubHeaderTop {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: var(--space-4);
+  }
+
+  .playlistHubCta {
+    justify-self: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Empty-state action tiles */
+.playlistActionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+@media (max-width: 860px) {
+  .playlistActionGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tile shell (no weird internal split layouts) */
+.playlistActionTile {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, #ffffff 0%, var(--bg-muted) 100%);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+
+  text-align: center;
+  text-decoration: none;
+  color: var(--text);
+
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.playlistActionTile:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.playlistActionTile:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring), var(--shadow-md);
+}
+
+/* prevent global link hover turning teal */
+.playlistActionTile,
+.playlistActionTile:hover,
+.playlistActionTile:focus,
+.playlistActionTile:focus-visible {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.playlistActionIcon {
+  display: flex;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.playlistActionTitle {
+  font-size: var(--tile-title); /* 18px */
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+
+.playlistActionDesc {
+  font-size: var(--body); /* 16px */
+  font-weight: var(--weight-regular);
+  margin: 0;
+  color: var(--text);
+  line-height: 1.35;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* no “Start a colle…” nonsense */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.playlistActionCtaRow {
+  margin-top: var(--space-3);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Divider + starter section spacing */
+.playlistStarterRule {
+  height: 1px;
+  border: 0;
+  background: var(--border);
+  margin: var(--space-8) 0 var(--space-6) 0;
+}
+
+.playlistStarterHeader {
+  text-align: center;
+  margin: 0 0 var(--space-6) 0;
+  color: var(--text-muted);
+  font-size: var(--caption);
+  font-weight: var(--weight-regular);
+}
+
+/* Starter playlists grid: 2 columns desktop, 1 column mobile */
+.playlistStarterGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+@media (max-width: 860px) {
+  .playlistStarterGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Playlist tiles (used for starter + populated state) */
+.playlistGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+@media (max-width: 860px) {
+  .playlistGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.playlistTile {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  text-decoration: none;
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.playlistTile:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+.playlistTile:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring), var(--shadow-md);
+  text-decoration: none;
+}
+
+/* prevent global link hover turning teal */
+.playlistTile,
+.playlistTile:hover,
+.playlistTile:focus,
+.playlistTile:focus-visible {
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Consistent cover sizing: ~16:10 */
+.playlistCoverWrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--bg-muted);
+}
+
+.playlistTileMedia {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.playlistTileBody {
+  padding: var(--space-4);
+}
+
+.playlistTileTitle {
+  font-size: var(--tile-title); /* 18px */
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.playlistTileMeta {
+  margin: var(--space-2) 0 0 0;
+  font-size: var(--caption);
+  font-weight: var(--weight-regular);
+  color: var(--text-muted);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 /* =========================
    Links (accent allowed)
 ========================= */
