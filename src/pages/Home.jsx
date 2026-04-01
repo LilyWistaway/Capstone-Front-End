@@ -34,26 +34,26 @@ export default function Home() {
         <div className="home-gatewayQuiz">
           <HomeTile
             to="/quiz"
-            title="Discover your travel style"
-            desc="Build your unique travel profile and get personalized recommendations"
-            cta="Take the Quiz"
+            title="Refine your taste profile"
+            desc="Answer a few questions to get personalized recommendations"
+            cta="Begin"
             bg={quizImg}
           />
         </div>
 
         <HomeTile
           to="/browse"
-          title="Browse destinations"
-          desc="Explore options to build playlists that match your vibe"
-          cta="Explore"
+          title="See curated lodging destinations"
+          desc="Explore options to narrow to the best fit for you"
+          cta="View options"
           bg={browseImg}
         />
 
         <HomeTile
           to="/booking"
-          title="Booking"
-          desc="Compare destinations that fit your style and budget"
-          cta="View booking options"
+          title="Compare and choose"
+          desc="Side-by-side comparisons of your top picks"
+          cta="Compare options"
           bg={bookImg}
         />
       </div>
