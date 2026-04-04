@@ -1231,117 +1231,175 @@ textarea:focus {
   overflow: hidden;
 }
 /* =========================
-   Homepage gateway tiles (#45)
+   Homepage MVP v2 — Hero + compact form (#52)
 ========================= */
 
-.home-gateway {
-  padding-top: var(--space-7);
+.home-v2 {
+  max-width: 980px;
+  margin: 0 auto;
+  padding-top: var(--space-8);
   padding-bottom: var(--space-7);
 }
 
-.home-gatewayTitle {
-  margin-bottom: var(--space-6);
+.home-v2Hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
-.home-gatewayGrid {
-  max-width: 980px;
+.home-v2HeroText {
+  text-align: center;
+}
+
+.home-v2Headline {
+  max-width: 760px;
+  margin: 0 auto var(--space-3) auto;
+  color: var(--text);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+}
+
+.home-v2Subtext {
+  max-width: 620px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-5);
-  align-items: stretch;
+  color: var(--text-muted);
 }
 
-.home-gatewayQuiz {
-  grid-column: 1 / -1;
-  justify-self: center;
-  width: min(720px, 100%);
+.home-v2HeroImageWrap {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: transparent;
+  line-height: 0;
+  position: relative;
+  border: #fff;
 }
 
-@media (max-width: 860px) {
-  .home-gatewayGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .home-gatewayQuiz {
-    width: 100%;
-  }
-}
-
-/* Tile surface */
-.home-tile {
+.home-v2HeroImage {
   display: block;
+  width: calc(100% + 6px);
+  height: 188px;
+  margin: -4px;
+  object-fit: cover;
+  object-position: center;
+  background: transparent;
+}
+
+.home-v2Framing {
+  max-width: 620px;
+  margin: var(--space-4) auto 0 auto;
+  text-align: center;
+}
+
+.home-v2FramingText {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.home-v2FormCard {
+  max-width: 900px;
+  margin: var(--space-5) auto 0 auto;
+  padding: var(--space-4);
+  background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  overflow: hidden;
-  text-decoration: none;
-  transition:
-    box-shadow 160ms ease,
-    border-color 160ms ease;
 }
 
-.home-tile:hover {
-  border-color: var(--accent);
-  box-shadow: var(--shadow-md);
-  text-decoration: none;
+@media (min-width: 860px) {
+  .home-v2FormCard {
+    padding: var(--space-5);
+  }
 }
 
-.home-tile:focus-visible {
-  box-shadow: var(--focus-ring), var(--shadow-md);
+.home-v2FormHeader {
+  text-align: center;
+  margin-bottom: var(--space-4);
 }
 
-/* Background image container */
-.home-tileMedia {
-  position: relative;
-  height: 290px;
-  background-size: 103% 103%; /* slight zoom to crop ~2px border */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: var(--bg-muted);
+.home-v2FormTitle {
+  margin: 0;
 }
 
-/* Make quiz tile slightly more dominant */
-.home-gatewayQuiz .home-tileMedia {
-  height: 335px;
+.home-v2FormHelper {
+  margin: var(--space-2) 0 0 0;
+  text-align: center;
+  color: var(--text-muted);
 }
 
-/* Soft white overlay (lighter than before so image shows) */
-.home-tileMedia::before {
+.home-v2Field + .home-v2Field {
+  margin-top: var(--space-7);
+}
+.home-v2Field + .home-v2Field::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.8); /* or your current value */
-  pointer-events: none;
+  display: block;
+  height: 1px;
+  background: var(--border);
+  margin-bottom: var(--space-6);
+}
+.home-v2Label {
+  display: block;
+  margin: 0 0 var(--space-3) 0;
+  font-size: var(--body);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+  text-align: center;
 }
 
-/* Centered content */
-.home-tileContent {
-  position: relative;
-  height: 100%;
-  padding: var(--space-6);
+.home-v2TripGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+@media (max-width: 720px) {
+  .home-v2TripGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .home-v2TripGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-formTile {
+  padding: var(--space-3);
+}
+
+.home-formTileContent {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
   text-align: center;
-}
-/* Tile Title: 18px / 700 */
-.home-tileContent .h3 {
-  font-size: var(--tile-title); /* 18px */
-  font-weight: 700; /* upgraded from 600 */
-  color: var(--text); /* #1F2937 */
+  min-height: 92px;
 }
 
-/* Tile Subtitle: 16px / 500 */
-.home-tileDesc {
-  font-size: var(--body); /* 16px */
-  font-weight: 475; /* upgraded from 400 */
-  color: var(--text); /* full primary text */
-  line-height: 1.35;
-  max-width: 520px;
+.home-formTileIcon {
+  color: var(--accent);
+  display: flex;
+  justify-content: center;
+}
+
+.home-formTileTitle {
   margin: 0;
+  font-size: var(--tile-title);
+  font-weight: 700;
+  color: var(--text);
+}
+
+.home-formTileDesc {
+  margin: 0;
+  font-size: var(--caption);
+  font-weight: var(--weight-regular);
+  color: var(--text-muted);
+  line-height: 1.28;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1350,11 +1408,49 @@ textarea:focus {
   overflow: hidden;
 }
 
-.home-tileCta {
-  margin-top: var(--space-2);
+.home-v2Segmented {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
 }
-.home-h1 {
-  font-weight: 700;
-  letter-spacing: -0.03em;
+
+@media (max-width: 720px) {
+  .home-v2Segmented {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.home-v2Segment {
+  min-height: 44px;
+  border: 1px solid rgba(23, 190, 187, 0.28); /* slightly stronger */
+  border-radius: 12px;
+  background: #ffffff;
   color: var(--text);
+  font-size: var(--button);
+  font-weight: var(--weight-medium);
+  transition:
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.home-v2Segment:hover {
+  border-color: var(--accent);
+  background: rgba(23, 190, 187, 0.05);
+}
+
+.home-v2Segment--selected {
+  border-color: var(--accent);
+  background: rgba(23, 190, 187, 0.08);
+  box-shadow: var(--shadow-sm);
+}
+
+.home-v2CtaBlock {
+  margin-top: var(--space-5);
+}
+
+.home-v2Cta {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 12px;
 }
